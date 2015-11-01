@@ -1,2 +1,0 @@
-# wifi-passwords
-wifi-passwords
