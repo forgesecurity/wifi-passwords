@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Wifi Passwords Scanner</string>
+
+    <string name="action_start">Démarrer les scans</string>
+    <string name="action_stop">Arreter les scans</string>
+    <string name="action_network">Mes réseaux Wifi</string>
+    <string name="action_histo">Historique</string>
+    <string name="action_settings">Configuration</string>
+    <string name="action_quit">Quitter</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
