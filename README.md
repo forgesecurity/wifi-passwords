@@ -1,2 +1,2 @@
 # wifi-passwords
-Wifi passwords is a android application for scanning insecure wifi networks.
+Wifi passwords is an android application for scanning security of wifi networks.
