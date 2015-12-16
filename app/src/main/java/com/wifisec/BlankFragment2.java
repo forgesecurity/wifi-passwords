@@ -17,20 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class BlankFragment2 extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
 
     private interfaceFragment.OnFragmentInteractionListener mListener;
 
-    public static BlankFragment2 newInstance(String param1, String param2) {
+    public static BlankFragment2 newInstance() {
         BlankFragment2 fragment = new BlankFragment2();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -41,10 +32,6 @@ public class BlankFragment2 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -90,7 +77,7 @@ public class BlankFragment2 extends Fragment {
         public void onClick(View v) {
 
             FeedReaderDbHelper mDbHelper = new FeedReaderDbHelper(getActivity());
-            SQLiteDatabase db = mDbHelper.getReadableDatabase();
+            SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
             db.execSQL("delete from "+ FeedReaderContract.FeedEntry.TABLE_NAME_PASSWORDS);
 

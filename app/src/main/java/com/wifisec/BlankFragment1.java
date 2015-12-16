@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,35 +14,33 @@ import android.view.ViewGroup;
 public class BlankFragment1 extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     private String mParam1;
-    private String mParam2;
     private RecyclerView rv;
-    private MyAdapter adapter;
+    public HandleWifi MyWifi;
 
     private interfaceFragment.OnFragmentInteractionListener mListener;
 
-    public static BlankFragment1 newInstance(String param1, String param2) {
+
+    public static BlankFragment1 newInstance(String type) {
         BlankFragment1 fragment = new BlankFragment1();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM1, type);
         fragment.setArguments(args);
         return fragment;
     }
 
     public BlankFragment1() {
+
+        Log.w("TEST_SEC_WIFI", "BlankFragment1 constructeur MyWifi");
     }
 
     private void createAdapter() {
+        this.MyWifi = new HandleWifi(this.getActivity(), mParam1);
         this.rv = (RecyclerView) getView().findViewById(R.id.myrecyclerview);
-        this.adapter = new MyAdapter(this.getActivity());
-        rv.setAdapter(this.adapter);
+        rv.setAdapter(this.MyWifi.adapter);
         rv.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this.getActivity(), DividerItemDecoration.VERTICAL_LIST);
         rv.addItemDecoration(itemDecoration);
-        this.adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -50,7 +49,6 @@ public class BlankFragment1 extends Fragment {
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 

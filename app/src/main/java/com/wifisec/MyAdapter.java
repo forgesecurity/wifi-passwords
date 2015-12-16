@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +15,13 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
-    private ArrayList<WifiSec> wifis;
+    public ArrayList<WifiSec> wifis;
     private Context context;
-    private HandleWifi MyWifi;
+    public HandleWifi callbackwifi;
 
-    public MyAdapter(Context context) {
+    public MyAdapter(Context context, String type) {
             this.context = context;
-            this.MyWifi = new HandleWifi(context);
-            this.wifis = this.MyWifi.getWifis();
+            this.wifis = new ArrayList<WifiSec>();
         }
 
     @Override
@@ -45,6 +45,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
         @Override
         public int getItemCount() {
+            if(wifis == null)
+                return 0;
+
             return wifis.size();
         }
 
@@ -67,12 +70,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             String str = "password not found";
             int position = getLayoutPosition();
             WifiSec wifi = wifis.get(position);
-            if(MyWifi.scanWifis(wifi.getssid(), wifi.getbssid()))
-                str = "password found";
 
-            Toast.makeText(context, Html.fromHtml(wifi.getssid()+" : "+str), Toast.LENGTH_SHORT).show();
+            if(callbackwifi != null) {
+                Log.w("TEST_SEC_WIFI", "callbackwifi not null");
+                if(callbackwifi.type == "show_vulnerables")
+                {
+                    Log.w("TEST_SEC_WIFI", "callbackwifi show_vulnerables");
+                    Toast.makeText(context, Html.fromHtml("ssid : " + wifi.getssid()
+                            + "<br>password : " + wifi.getpassword()
+                            + "<br>coordinates_x : " + wifi.getcoordinatesx()
+                            + "<br>coordinates_y : " + wifi.getcoordinatesy()), Toast.LENGTH_SHORT).show();
+                }
+                else {
+                Log.w("TEST_SEC_WIFI", "callbackwifi scan");
+                    if (callbackwifi.PasswordsWifis(wifi.getssid(), wifi.getbssid()))
+                        str = "password found";
+
+                    Toast.makeText(context, Html.fromHtml(wifi.getssid() + " : " + str), Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
-
-
 }

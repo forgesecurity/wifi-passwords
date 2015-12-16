@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements interfaceFragment
 
         this.fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = this.fm.beginTransaction();
-        BlankFragment1 fr = new BlankFragment1();
+        BlankFragment1 fr = BlankFragment1.newInstance("scan");
         fragmentTransaction.replace(R.id.fragment_place, fr);
         fragmentTransaction.commit();
     }
@@ -39,23 +39,24 @@ public class MainActivity extends AppCompatActivity implements interfaceFragment
 
         FragmentTransaction fragmentTransaction = this.fm.beginTransaction();
 
-        if (id == R.id.action_start) {
-        }
-        else if(id == R.id.action_stop) {
-        }
-        else if(id == R.id.action_network) {
-
-            BlankFragment1 fr1 = new BlankFragment1();
+        if (id == R.id.action_show) {
+            BlankFragment1 fr1 = BlankFragment1.newInstance("scan");
             fragmentTransaction.replace(R.id.fragment_place, fr1);
         }
-        else if(id == R.id.action_histo) {
+        else if(id == R.id.action_vulnerables) {
+            BlankFragment1 fr1 = BlankFragment1.newInstance("show_vulnerables");
+            fragmentTransaction.replace(R.id.fragment_place, fr1);
+        }
+        else if(id == R.id.action_delete_vulnerables) {
+            BlankFragment1 fr1 = BlankFragment1.newInstance("delete_vulnerables");
+            fragmentTransaction.replace(R.id.fragment_place, fr1);
         }
         else if(id == R.id.action_settings) {
-
-            BlankFragment2 fr2 = new BlankFragment2();
+            BlankFragment2 fr2 = BlankFragment2.newInstance();
             fragmentTransaction.replace(R.id.fragment_place, fr2);
         }
         else if(id == R.id.action_quit) {
+            finish();
         }
 
         fragmentTransaction.addToBackStack(null);
